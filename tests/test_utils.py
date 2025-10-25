@@ -1,4 +1,4 @@
-from ..src.utils import preprocess
+from src.utils import preprocess
 
 
 def test_preprocess():
