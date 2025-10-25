@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: iris-model
-          path: models/iris_model.pkl
+          path: models/model.pkl
 
       - name: Build Docker image
         run: |
