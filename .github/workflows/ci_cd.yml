@@ -39,5 +39,5 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag iris-ml:latest ${{ secrets.DOCKER_USERNAME }}/iris-ml:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/iris-ml:latest
+          docker tag iris:latest ${{ secrets.DOCKER_USERNAME }}/iris:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/iris:latest
