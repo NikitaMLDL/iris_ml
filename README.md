@@ -17,10 +17,12 @@
 
 ## Структура проекта
 
+
+```text
 └───iris_ml
     │   Dockerfile
     │   LICENSE
-    |   README.md
+    │   README.md
     │   requirements.txt
     │
     ├───.github
@@ -28,7 +30,6 @@
     │           ci_cd.yml
     │
     ├───models
-    │
     │
     ├───src
     │       predict.py
