@@ -1,23 +1,20 @@
-name: CI/CD for Iris Classifier
+name: CI/CD Iris ML
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  ci-cd:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: 3.11
 
       - name: Install dependencies
         run: |
@@ -31,12 +28,16 @@ jobs:
         run: |
           python src/train.py
 
-      - name: Upload trained model artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: iris-model
-          path: models/model.pkl
-
       - name: Build Docker image
+        run: docker build -t iris-ml:latest .
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image
         run: |
-          docker build -t iris-ml:latest .
+          docker tag iris-ml:latest ${{ secrets.DOCKER_USERNAME }}/iris-ml:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/iris-ml:latest
